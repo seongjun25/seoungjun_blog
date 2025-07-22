@@ -1,6 +1,6 @@
 project:
   type: website
-  output-dir:docs # 추가
+  output-dir: docs # 추가
 website:
   title: "seoungjun blog"
   navbar:
