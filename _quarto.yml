@@ -1,0 +1,19 @@
+project:
+  type: website
+  output-dir:docs # 추가
+website:
+  title: "seoungjun blog"
+  navbar:
+    right:
+      - about.qmd
+      - icon: github
+        href: https://github.com/seongjun25
+format:
+  html:
+    theme:
+      - lux
+      - brand
+    css: styles.css
+
+
+
