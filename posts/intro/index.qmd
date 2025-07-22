@@ -1,0 +1,9 @@
+---
+title: "intro"
+author: "SeongJun"
+date: now
+categories: [code, analysis]
+---
+
+나의 첫 블로그~
+pandas 문제풀이 업로드하기!

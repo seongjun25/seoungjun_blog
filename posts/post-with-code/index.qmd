@@ -1,0 +1,9 @@
+---
+title: "Post With Code"
+author: "Harlow Malloc"
+date: "2025-07-22"
+categories: [news, code, analysis]
+image: "https://upload.wikimedia.org/wikipedia/commons/9/98/%EC%98%88%EC%A0%9C.png"
+---
+
+
