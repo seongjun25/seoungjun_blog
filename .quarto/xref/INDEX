@@ -16,5 +16,8 @@
   },
   "posts/intro/index.qmd": {
     "index.html": "6c662c13"
+  },
+  "posts/intro/introduce.qmd": {
+    "introduce.html": "04d69a9b"
   }
 }

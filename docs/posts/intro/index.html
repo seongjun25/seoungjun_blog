@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="SeongJun">
-<meta name="dcterms.date" content="2025-07-22">
+<meta name="dcterms.date" content="2025-07-23">
 
 <title>intro – seoungjun blog</title>
 <style>
@@ -132,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">July 22, 2025</p>
+        <p class="date">July 23, 2025</p>
       </div>
     </div>
     
@@ -151,9 +151,64 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>나의 첫 블로그~ pandas 문제풀이 업로드하기!</p>
+<section id="문제풀이" class="level3">
+<h3 class="anchored" data-anchor-id="문제풀이">0722 문제풀이</h3>
+<p>import pandas as pd df = pd.read_csv(‘./data/bike_data.csv’) print(df.head())</p>
+<p>df = df.astype({‘datetime’ : ‘datetime64[ns]’, ‘weather’ : ‘int64’, ‘season’ : ‘object’, ‘workingday’ : ‘object’, ‘holiday’ : ‘object’})</p>
+<p>df.head() df.columns # 계절(season) == 1일 때, 가장 대여량이 많은 시간대(hour)을 구하시오.</p>
+<p>df_sub=df.loc[df.season == 1, ].copy() df_sub[‘datetime’].dt.hour df_sub df_sub[“hour”] = df_sub[‘datetime’].dt.hour df_sub[“hour”]=df_sub[‘datetime’].dt.hour</p>
+</section>
+<section id="각-계절season별-평균-대여량count을-구하시오." class="level1">
+<h1>각 계절(season)별 평균 대여량(count)을 구하시오.</h1>
+<p>df.groupby(“season”)[“count”].mean()</p>
+</section>
+<section id="특정-달month-동안의-총-대여량count을-구하시오." class="level1">
+<h1>특정 달(month) 동안의 총 대여량(count)을 구하시오.</h1>
+<p>df.groupby(df[“datetime”].dt.month) df[“month”]=df[“datetime”].dt.month df.groupby(“month”)[“count”].sum()</p>
+</section>
+<section id="가장-대여량이-많은-날짜를-구하시오." class="level1">
+<h1>가장 대여량이 많은 날짜를 구하시오.</h1>
+<p>df_date = df[“datetime”].dt.date df[“date”] = df[“datetime”].dt.date df_count = df.groupby(“date”)[“count”].sum() df_count.idxmax() df_count.max() print(df_count.idxmax(),df_count.max())</p>
+</section>
+<section id="시간대hour별-평균-대여량count을-구하시오." class="level1">
+<h1>시간대(hour)별 평균 대여량(count)을 구하시오.</h1>
+<p>df[“hour”]=df[“datetime”].dt.hour df.groupby(“hour”)[“count”].mean()</p>
+</section>
+<section id="특정-요일weekday-동안의-총-대여량count을-구하시오." class="level1">
+<h1>특정 요일(weekday) 동안의 총 대여량(count)을 구하시오.</h1>
+<p>df[“weekday”]=df[“datetime”].dt.day_name() df.groupby(“weekday”)[“count”].sum()</p>
+</section>
+<section id="주어진-bike-sharing-데이터를-사용하여-넓은-형식wide-format에서-긴-형식long-format으로-변환하시오.-casual과-registered-열을-하나의-열로-변환하고-각-기록의-대여-유형과-대여-수를-포함하는-긴-형식-데이터프레임을-만드시오." class="level1">
+<h1>주어진 Bike Sharing 데이터를 사용하여 넓은 형식(wide format)에서 긴 형식(long format)으로 변환하시오. casual과 registered 열을 하나의 열로 변환하고, 각 기록의 대여 유형과 대여 수를 포함하는 긴 형식 데이터프레임을 만드시오.</h1>
+<p>df_melted = pd.melt( df, id_vars=[“datetime”,“season”], value_vars=[“casual”,“registered”], var_name=“user_type”, value_name=“user_count” )</p>
+</section>
+<section id="이전에-생성한-긴-형식-데이터프레임을-활용하여-각-계절season별로-casual과-registered-사용자의-평균-대여-수count를-구하시오." class="level1">
+<h1>이전에 생성한 긴 형식 데이터프레임을 활용하여 각 계절(season)별로 casual과 registered 사용자의 평균 대여 수(count)를 구하시오.</h1>
+<p>df_melted.groupby([“season”,“user_type”])[“user_count”].mean().reset_index()</p>
+<p>import pandas as pd pd.set_option(‘display.max_columns’, None) # 전체 칼럼 정보 프린트 옵션 df = pd.read_csv(‘./data/logdata.csv’) print(df.head(2))</p>
+</section>
+<section id="로그-칼럼에서-숫자-정보만-추출하시오." class="level1">
+<h1>로그 칼럼에서 숫자 정보만 추출하시오.</h1>
+<p>df[‘연도 정보’] = df[‘로그’].str.extract(r’()’)</p>
+</section>
+<section id="로그-칼럼에서-모든-시간-정보를-추출하시오." class="level1">
+<h1>로그 칼럼에서 모든 시간 정보를 추출하시오.</h1>
+<p>df[‘시간 정보’] = df[‘로그’].str.extract(r’(::)’)</p>
+</section>
+<section id="로그-칼럼에서-한글-정보만-추출하시오." class="level1">
+<h1>로그 칼럼에서 한글 정보만 추출하시오.</h1>
+<p>df[‘한글 정보’] = df[‘로그’].str.extract(r’([가-힣]+)’)</p>
+</section>
+<section id="로그-칼럼에서-특수-문자를-제거하시오." class="level1">
+<h1>로그 칼럼에서 특수 문자를 제거하시오.</h1>
+<p>df[‘특수 문자 제거’] = df[‘로그’].str.replace(r’[^a-zA-Z0-9가-힣\s]‘,’’, regex=True)</p>
+</section>
+<section id="로그-칼럼에서-유저-amount-값을-추출한-후-각-유저별-amount의-평균값을-계산하시오." class="level1">
+<h1>로그 칼럼에서 유저, Amount 값을 추출한 후 각 유저별 Amount의 평균값을 계산하시오.</h1>
+<p>df[‘Amount’] = df[‘로그’].str.extract(r’Amount:()‘).astype(float) df[’User’] = df[’로그’].str.extract(r’User:([가-힣]+)’) grouped = df.groupby(‘User’)[‘Amount’].mean().reset_index()</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -4,14 +4,14 @@
     "href": "index.html",
     "title": "seoungjun blog",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nintro\n\n\n\ncode\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 22, 2025\n\n\nSeongJun\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog 2\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJul 22, 2025\n\n\nSeongJun\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 22, 2025\n\n\nHarlow Malloc\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nintro\n\n\n\ncode\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 23, 2025\n\n\nSeongJun\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog 2\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJul 22, 2025\n\n\nSeongJun\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\n\n\nJul 22, 2025\n\n\nHarlow Malloc\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/Pandas_practice/index.html",
     "href": "posts/Pandas_practice/index.html",
     "title": "Welcome To My Blog 2",
     "section": "",
-    "text": "안녕하세요"
+    "text": "자기소개 안녕하세요 반갑습니다~ 제 이름은 박성준입니다. 저는 파이썬을 좋아합니다."
   },
   {
     "objectID": "about.html",
@@ -25,6 +25,13 @@
     "href": "posts/intro/index.html",
     "title": "intro",
     "section": "",
-    "text": "나의 첫 블로그~ pandas 문제풀이 업로드하기!"
+    "text": "0722 문제풀이\nimport pandas as pd df = pd.read_csv(‘./data/bike_data.csv’) print(df.head())\ndf = df.astype({‘datetime’ : ‘datetime64[ns]’, ‘weather’ : ‘int64’, ‘season’ : ‘object’, ‘workingday’ : ‘object’, ‘holiday’ : ‘object’})\ndf.head() df.columns # 계절(season) == 1일 때, 가장 대여량이 많은 시간대(hour)을 구하시오.\ndf_sub=df.loc[df.season == 1, ].copy() df_sub[‘datetime’].dt.hour df_sub df_sub[“hour”] = df_sub[‘datetime’].dt.hour df_sub[“hour”]=df_sub[‘datetime’].dt.hour\n\n\n각 계절(season)별 평균 대여량(count)을 구하시오.\ndf.groupby(“season”)[“count”].mean()\n\n\n특정 달(month) 동안의 총 대여량(count)을 구하시오.\ndf.groupby(df[“datetime”].dt.month) df[“month”]=df[“datetime”].dt.month df.groupby(“month”)[“count”].sum()\n\n\n가장 대여량이 많은 날짜를 구하시오.\ndf_date = df[“datetime”].dt.date df[“date”] = df[“datetime”].dt.date df_count = df.groupby(“date”)[“count”].sum() df_count.idxmax() df_count.max() print(df_count.idxmax(),df_count.max())\n\n\n시간대(hour)별 평균 대여량(count)을 구하시오.\ndf[“hour”]=df[“datetime”].dt.hour df.groupby(“hour”)[“count”].mean()\n\n\n특정 요일(weekday) 동안의 총 대여량(count)을 구하시오.\ndf[“weekday”]=df[“datetime”].dt.day_name() df.groupby(“weekday”)[“count”].sum()\n\n\n주어진 Bike Sharing 데이터를 사용하여 넓은 형식(wide format)에서 긴 형식(long format)으로 변환하시오. casual과 registered 열을 하나의 열로 변환하고, 각 기록의 대여 유형과 대여 수를 포함하는 긴 형식 데이터프레임을 만드시오.\ndf_melted = pd.melt( df, id_vars=[“datetime”,“season”], value_vars=[“casual”,“registered”], var_name=“user_type”, value_name=“user_count” )\n\n\n이전에 생성한 긴 형식 데이터프레임을 활용하여 각 계절(season)별로 casual과 registered 사용자의 평균 대여 수(count)를 구하시오.\ndf_melted.groupby([“season”,“user_type”])[“user_count”].mean().reset_index()\nimport pandas as pd pd.set_option(‘display.max_columns’, None) # 전체 칼럼 정보 프린트 옵션 df = pd.read_csv(‘./data/logdata.csv’) print(df.head(2))\n\n\n로그 칼럼에서 숫자 정보만 추출하시오.\ndf[‘연도 정보’] = df[‘로그’].str.extract(r’()’)\n\n\n로그 칼럼에서 모든 시간 정보를 추출하시오.\ndf[‘시간 정보’] = df[‘로그’].str.extract(r’(::)’)\n\n\n로그 칼럼에서 한글 정보만 추출하시오.\ndf[‘한글 정보’] = df[‘로그’].str.extract(r’([가-힣]+)’)\n\n\n로그 칼럼에서 특수 문자를 제거하시오.\ndf[‘특수 문자 제거’] = df[‘로그’].str.replace(r’[^a-zA-Z0-9가-힣\\s]‘,’’, regex=True)\n\n\n로그 칼럼에서 유저, Amount 값을 추출한 후 각 유저별 Amount의 평균값을 계산하시오.\ndf[‘Amount’] = df[‘로그’].str.extract(r’Amount:()‘).astype(float) df[’User’] = df[’로그’].str.extract(r’User:([가-힣]+)’) grouped = df.groupby(‘User’)[‘Amount’].mean().reset_index()"
+  },
+  {
+    "objectID": "posts/intro/introduce.html",
+    "href": "posts/intro/introduce.html",
+    "title": "seoungjun blog",
+    "section": "",
+    "text": "안녕하세요 박성준입니다. 반갑습니다~"
   }
 ]
